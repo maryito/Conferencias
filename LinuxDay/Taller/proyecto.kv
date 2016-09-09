@@ -1,0 +1,94 @@
+#:import MapSource mapview.MapSource
+<Toolbar@BoxLayout>:
+    size_hint_y: None
+    height: '48dp'
+    padding: '4dp'
+    spacing: '4dp'
+    canvas:
+        Color:
+            rgba: .2, .2, .2, .6
+        Rectangle:
+            pos: self.pos
+            size: self.size
+ScreenManager:
+    nombre: "Aun no estas registrado"
+    Screen:
+        name: 'home'
+        RelativeLayout:     
+            orientation: 'vertical'
+            BoxLayout:
+                orientation: 'vertical' 
+                padding: '75dp'
+                spacing: '25dp'
+                canvas:
+                    Color:
+                        rgba: .2, .2, .2, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size               
+                Label:
+                    text: 'Mi Primer Proyecto con Python '
+                    font_size: "50sp"
+                Button:        
+                    text:"Solicito de Datos"
+                    on_press: root.current= ("datos")
+                Button: 
+                    text:"Ver Mapa"
+                    on_press: root.current= ("mapa")
+    Screen:
+        name: 'datos'
+        FloatLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                GridLayout:
+                    cols: 2
+                    padding: '75dp'
+                    spacing: '10dp'
+                    canvas:
+                        Color:
+                            rgba: .2, .2, .2, .6
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size   
+                    Label:
+                        text: 'Cual es su nombre: ' 
+                    TextInput:                    
+                        id: nombre
+                Button:
+                    text: 'Guardar'
+                    on_press: 
+                        print(nombre.text) 
+                        nombre.text = "Bienvenido "+nombre.text               
+                        root.current = ("home")
+
+
+    Screen:
+        name: 'mapa'
+        RelativeLayout:
+        MapView:
+            id: mapview
+            lat: 8.9936000
+            lon: -79.5197300
+            zoom: 16
+            MapMarker:
+                title:'Estamos en UIP con el LinuxDay',
+                lat: 9.0304617
+                lon: -79.5169619
+        Toolbar:
+            top: root.top
+            Button:
+                size_hint_x: .4
+                text: "Ir a LinuxDay "
+                on_release: mapview.center_on(9.0304617, -79.5169619)
+            Label:
+                text: nombre.text
+            Button:
+                size_hint_x: .3
+                text: "<-Regresar Inicio->"
+                on_release: root.current = ("home")
+        Toolbar:
+            Label:
+                text: "Longitude: {}".format(mapview.lon)
+            Label:
+                text: "Latitude: {}".format(mapview.lat)
+

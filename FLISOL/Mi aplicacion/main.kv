@@ -1,0 +1,30 @@
+<Ventana>:
+	Screen:
+		name: "home"
+		BoxLayout:
+			orientation:"vertical"
+			padding: 25
+			spacing: 10
+			TextInput:
+				id: nombre
+				text: ''
+			Button:
+				size_hint_y: .2
+				#text:"HOla mundo desde kivy .kv"
+				text: 'Generar nombre'
+				on_press: print(nombre.text)
+			Button:
+				text: 'Cambiar desde python'
+				on_press: root.cambiar()
+			Button:
+				text: 'Siguiente ventana'
+				on_press: root.current=("flisol")
+	Screen:
+		name: 'flisol'
+		Flisol:
+			BoxLayout:				
+				Button:
+					text: 'ir Home'
+					on_press: root.current=("home")	
+				
+<Flisol>:
